@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo App</title>
+    <style>
+        /* style.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f3f4f6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+form {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button, input[type="submit"] {
+    padding: 12px 18px;
+    border: none;
+    background-color: #2563eb;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #1d4ed8;
+}
+
+.task-list {
+    margin-top: 30px;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #e0e7ff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.task a {
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.task a:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 My ToDo List</h1>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.task(size=30) }}
+            {{ form.submit() }}
+        </form>
+
+        <div class="task-list">
+            {% for task in tasks %}
+            <div class="task">
+                <span>{{ task[1] }}</span>
+                <a href="{{ url_for('delete_task', id=task[0]) }}">Delete</a>
+            </div>
+            {% else %}
+            <p style="text-align: center;">No tasks added yet!</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
